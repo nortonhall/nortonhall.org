@@ -1014,4 +1014,518 @@ footer {
 }
   
 /* Fix: remove border under Circular header */
-.circular-header, .circul
+.circular-header, .circular-title, .circular-card h2{
+border-bottom:none !important;
+}
+
+/* Fix: attach mobile dropdown directly beneath navbar */
+.nav-mobile{
+margin-top:0 !important;
+}
+
+</style>
+
+<style id="nav-mobile-shadow-fix">
+@media (max-width: 900px) {
+  #nav:not(.scrolled) + .nav-mobile.open a {
+    text-shadow:  0 18px 40px rgba(0,0,0,0.92), 0 6px 14px rgba(0,0,0,0.75);
+  }
+
+  #nav:not(.scrolled) + .nav-mobile.open .nav-mobile-footer {
+    width: max-content;
+    min-width: 8.5rem;
+    white-space: nowrap;
+    border-top-color: transparent !important;
+    text-shadow: 0 12px 28px rgba(0,0,0,0.64), 0 0 16px rgba(0,0,0,0.28) !important;
+    box-shadow: none !important;
+    transform: translateY(0);
+  }
+
+  #nav:not(.scrolled) + .nav-mobile.open .nav-mobile-footer::before {
+    background: rgba(237, 228, 212, 0.84) !important;
+    box-shadow: 0 0 18px rgba(0,0,0,0.44), 0 0 5px rgba(0,0,0,0.24) !important;
+  }
+
+  #nav:not(.scrolled) + .nav-mobile.open .nav-mobile-footer,
+  #nav:not(.scrolled) + .nav-mobile.open .nav-mobile-footer span,
+  #nav:not(.scrolled) + .nav-mobile.open .nav-mobile-footer a {
+    text-shadow: 0 12px 28px rgba(0,0,0,0.64), 0 0 16px rgba(0,0,0,0.28) !important;
+  }
+
+  #nav.scrolled + .nav-mobile a,
+  #nav.scrolled + .nav-mobile .nav-mobile-footer,
+  #nav.scrolled + .nav-mobile .nav-mobile-footer span,
+  #nav.scrolled + .nav-mobile .nav-mobile-footer a {
+    text-shadow: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+
+  #nav.scrolled + .nav-mobile .nav-mobile-footer::before {
+    box-shadow: none !important;
+    background: var(--rule) !important;
+  }
+
+  .section-card,
+  .section-card + .section-card,
+  .section-card:nth-child(4),
+  .section-card:nth-child(-n+2),
+  .section-card:nth-child(odd) {
+    border-width: 1px !important;
+  }
+
+  /* Keep mobile dropdown attached to navbar */
+  .nav-mobile,
+  #nav.scrolled + .nav-mobile {
+    top: var(--nav-offset, 56px) !important;
+  }
+
+  #nav:not(.scrolled) + .nav-mobile ul a {
+    font-weight: 700 !important;
+  }
+
+  #nav:not(.scrolled) + .nav-mobile .nav-mobile-footer,
+  #nav:not(.scrolled) + .nav-mobile .nav-mobile-footer::before {
+    font-weight: 400 !important;
+  }
+
+  @media (max-width: 640px) {
+    .circular-band-inner.carousel-slide {
+      grid-template-columns: minmax(0, 1fr) auto !important;
+    }
+
+    .carousel-slide .circular-content,
+    .carousel-slide .circular-title,
+    .carousel-slide .circular-excerpt {
+      display: block !important;
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      grid-column: 1 / -1 !important;
+    }
+
+    .carousel-slide .circular-action {
+      grid-row: 1 !important;
+      grid-column: 2 !important;
+      align-items: flex-end !important;
+      justify-content: flex-start !important;
+      width: auto !important;
+      margin-top: 0 !important;
+    }
+  }
+}
+
+</style>
+
+<style id="transparent-nav-mobile-anim">
+@media (max-width: 900px) {
+  #nav:not(.scrolled) + .nav-mobile {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-28px) !important;
+    pointer-events: none !important;
+    transition:
+      opacity 0.7s ease !important,
+      transform 0.7s ease !important,
+      visibility 0s linear 0.7s !important;
+  }
+
+  #nav:not(.scrolled) + .nav-mobile.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    transition:
+      opacity 0.7s ease !important,
+      transform 0.7s ease !important,
+      visibility 0s linear 0s !important;
+  }
+}
+</style>
+
+<style id="transparent-nav-content-slide">
+@media (max-width: 900px) {
+  #nav:not(.scrolled) + .nav-mobile ul,
+  #nav:not(.scrolled) + .nav-mobile .nav-mobile-footer {
+    opacity: 0 !important;
+    transform: translateY(-18px) !important;
+    transition:
+      opacity 0.7s ease !important,
+      transform 0.7s ease !important;
+    will-change: opacity, transform !important;
+  }
+
+  #nav:not(.scrolled) + .nav-mobile.open ul,
+  #nav:not(.scrolled) + .nav-mobile.open .nav-mobile-footer {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  #nav.scrolled + .nav-mobile ul,
+  #nav.scrolled + .nav-mobile .nav-mobile-footer {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+</style>
+
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <nav id="nav" aria-label="Primary">
+    <a href="#" class="nav-mark" aria-label="Norton Hall home">⁂</a>
+    <ul class="nav-desktop" role="list">
+      <li><a href="#">Publications</a></li>
+      <li><a href="#">Public Works</a></li>
+      <li><a href="#">The Circular</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="navMobile" aria-label="Mobile">
+    <ul role="list">
+      <li><a href="#">Publications</a></li>
+      <li><a href="#">Public Works</a></li>
+      <li><a href="#">The Circular</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-mobile-footer" aria-label="Norton Hall">© Norton Hall</div>
+  </div>
+
+  <div class="hero-circular-wrap">
+  <section class="hero" aria-label="Introductory image">
+    <div class="hero-image" id="heroImg" aria-hidden="true"></div>
+    
+  </section>
+
+  <!-- FEATURED CAROUSEL BAND -->
+  <div class="circular-band circular-carousel" aria-label="Latest from Norton Hall">
+    <div class="circular-carousel-track" id="featuredCarousel">
+      <div class="circular-band-inner carousel-slide active" data-feature-type="The Circular">
+        <div class="circular-meta">
+          <span class="circular-kicker">The Circular</span>
+          <span class="circular-issue">Issue I &ensp;·&ensp; March 2026</span>
+        </div>
+        <div class="circular-content">
+          <span class="circular-title">On the First Condition</span>
+          <span class="circular-excerpt">The opening issue considers why absolute non-existence was never a coherent alternative, and what follows once something must always already be the case.</span>
+        </div>
+        <div class="circular-action">
+          <a href="#" class="circular-read" aria-label="Read Issue I of The Circular">Read Issue →</a>
+        </div>
+      </div>
+
+      <div class="circular-band-inner carousel-slide" data-feature-type="Latest Publication">
+        <div class="circular-meta">
+          <span class="circular-kicker">Latest Publication</span>
+          <span class="circular-issue">First printing &ensp;·&ensp; 20 copies</span>
+        </div>
+        <div class="circular-content">
+          <span class="circular-title">Necessitas Mater Inventionum</span>
+          <span class="circular-excerpt">A printed volume containing two works: <em>On What Must Be the Case</em>, the formal framework itself, and <em>Accompanying Letters</em>, which render the argument in a more intuitive and approachable form.</span>
+        </div>
+        <div class="circular-action">
+          <a href="#" class="circular-read" aria-label="View Necessitas Mater Inventionum">View Publication →</a>
+        </div>
+      </div>
+
+      <div class="circular-band-inner carousel-slide" data-feature-type="Latest Public Work">
+        <div class="circular-meta">
+          <span class="circular-kicker">Latest Public Work</span>
+          <span class="circular-issue">Available to read freely</span>
+        </div>
+        <div class="circular-content">
+          <span class="circular-title">On What Must Be the Case</span>
+          <span class="circular-excerpt">The public presentation of the framework, setting out the structural conditions that must hold for anything to obtain at all, available online for readers who wish to test the argument directly.</span>
+        </div>
+        <div class="circular-action">
+          <a href="#" class="circular-read" aria-label="Read On What Must Be the Case">Read the Work →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="circular-controls" aria-label="Select featured item">
+      <button class="carousel-dot active" type="button" aria-label="Show The Circular" aria-pressed="true"></button>
+      <button class="carousel-dot" type="button" aria-label="Show Latest Publication" aria-pressed="false"></button>
+      <button class="carousel-dot" type="button" aria-label="Show Latest Public Work" aria-pressed="false"></button>
+    </div>
+  </div>
+  </div><!-- /hero-circular-wrap -->
+
+  <main id="main-content" tabindex="-1">
+
+    <section class="what-norton-hall-section">
+      <div class="section-header">
+        <h2>What Norton Hall Does</h2>
+        <div class="section-rule" aria-hidden="true"></div>
+      </div>
+
+      <p class="body-statement">
+A small independent press based in Northamptonshire continuing the older tradition of private scholarship and printing. Norton Hall publishes works concerned with ontology, cosmology, and the conditions under which awareness and meaning become possible. Its publishing activity takes several forms: formal printed volumes issued in small runs, a monthly periodical known as <em>The Circular</em>, and a growing body of selected writings made publicly available online. <em>Public Works are given freely</em>, forming a shared archive of essays, letters, and reflections drawn from the wider body of material produced through the press. Together these form an ongoing inquiry carried out in public, allowing readers not only to encounter finished work but to follow the development of the ideas themselves.
+</p>
+    </section>
+
+    <div class="sections-grid">
+      <a href="#" class="section-card" data-observe>
+        <span class="section-card-label">Printed Publications</span>
+        <h3>Norton Hall Press</h3>
+        <p>Formal works issued in print by the Norton Hall Press. These include printed volumes, monographs, and complete works published in small numbered runs. Each publication gathers material into a finished and stable form intended for long term reference.</p>
+        <span class="section-card-link">View Publications →</span>
+      </a>
+
+      <a href="#" class="section-card" data-observe>
+        <span class="section-card-label">Public Works</span>
+        <h3>Given Freely</h3>
+        <p>A curated archive of selected writings drawn from the broader body of material produced through the press. Essays, letters, and shorter works are made available freely so readers may encounter and test the arguments directly.</p>
+        <span class="section-card-link">Read the Letters →</span>
+      </a>
+
+      <a href="#" class="section-card" data-observe>
+        <span class="section-card-label">The Circular</span>
+        <h3>The Monthly Voice</h3>
+        <p>The monthly periodical of Norton Hall. Each issue records the ongoing work of the press: new essays, reflections, developing arguments, stories, and correspondence. It serves as the continuing public voice of the inquiry.</p>
+        <span class="section-card-link">Subscribe →</span>
+      </a>
+
+      <a href="#" class="section-card" data-observe>
+        <span class="section-card-label">Contact</span>
+        <h3>Correspondence</h3>
+        <p>Norton Hall welcomes correspondence from readers, scholars, and anyone wishing to pursue the inquiry further. Write to press@nortonhall.org. All serious letters are answered.</p>
+        <span class="section-card-link">Get in Touch →</span>
+      </a>
+    </div>
+
+    <div class="support-outer" data-observe>
+      <div class="support">
+        <span class="support-label">Support This Work</span>
+        <h2>Carrying the Inquiry Forward</h2>
+        <p>Norton Hall is an independent press. It receives no institutional funding, holds no academic position, and operates without endowment. Its public works are given freely and its publications are priced to cover materials only.</p>
+        <div style="margin-top: 1.8rem;">
+          <a href="#" class="btn btn-primary">Support This Work</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer aria-label="Footer">
+    <span class="footer-mark">⁂</span>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#">Publications</a>
+      <span class="footer-sep">·</span>
+      <a href="#">Public Works</a>
+      <span class="footer-sep">·</span>
+      <a href="#">The Circular</a>
+      <span class="footer-sep">·</span>
+      <a href="#">Contact</a>
+    </nav>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="#">Privacy</a>
+      <span class="footer-sep">·</span>
+      <a href="#">Imprint</a>
+    </nav>
+    <span class="footer-copy">© Norton Hall 2026</span>
+  </footer>
+
+  <script>
+    document.getElementById('heroImg').style.backgroundImage = "url('assets/hero.jpg')";
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const navMobile = document.getElementById('navMobile');
+    let lastScrolledState = false;
+
+    function syncMobileMenuTop() {
+      const navHeight = nav.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-offset', `${Math.round(navHeight)}px`);
+    }
+
+    function updateNavOnScroll() {
+      const isScrolled = window.scrollY > 60;
+      if (isScrolled !== lastScrolledState) {
+        nav.classList.toggle('scrolled', isScrolled);
+        lastScrolledState = isScrolled;
+      }
+    }
+
+    syncMobileMenuTop();
+    updateNavOnScroll();
+    window.addEventListener('orientationchange', syncMobileMenuTop);
+    window.addEventListener('scroll', updateNavOnScroll, { passive: true });
+
+    function setMenuState(isOpen) {
+      hamburger.classList.toggle('open', isOpen);
+      navMobile.classList.toggle('open', isOpen);
+      nav.classList.toggle('menu-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      navMobile.setAttribute('aria-hidden', String(!isOpen));
+    }
+
+    hamburger.addEventListener('click', () => {
+      syncMobileMenuTop();
+      setMenuState(!navMobile.classList.contains('open'));
+    });
+
+    hamburger.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setMenuState(false);
+        hamburger.focus();
+      }
+    });
+
+    navMobile.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setMenuState(false);
+        hamburger.focus();
+      }
+    });
+
+    navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { setMenuState(false); }));
+    setMenuState(false);
+
+    const carousel = document.getElementById('featuredCarousel');
+    const slides = carousel ? Array.from(carousel.querySelectorAll('.carousel-slide')) : [];
+    const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeSlide = 0;
+    let autoplayId = null;
+
+    function showSlide(index) {
+      if (!slides.length) return;
+      activeSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        const isActive = i === activeSlide;
+        slide.classList.toggle('active', isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+      dots.forEach((dot, i) => {
+        const isActive = i === activeSlide;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+
+    function stopAutoplay() {
+      if (autoplayId) {
+        window.clearInterval(autoplayId);
+        autoplayId = null;
+      }
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (prefersReducedMotion.matches || slides.length < 2) return;
+      autoplayId = window.setInterval(() => {
+        showSlide(activeSlide + 1);
+      }, 6500);
+    }
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        startAutoplay();
+      });
+    });
+
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', (event) => {
+        if (!carousel.contains(event.relatedTarget)) {
+          startAutoplay();
+        }
+      });
+    }
+
+    if (typeof prefersReducedMotion.addEventListener === 'function') {
+      prefersReducedMotion.addEventListener('change', startAutoplay);
+    } else if (typeof prefersReducedMotion.addListener === 'function') {
+      prefersReducedMotion.addListener(startAutoplay);
+    }
+
+    showSlide(0);
+    startAutoplay();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('[data-observe]').forEach((el, i) => { el.dataset.delay = i * 80; observer.observe(el); });
+  </script>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  let index = 0;
+  let startX = null;
+
+  function show(i){
+    slides.forEach((s,idx)=>{
+      s.classList.toggle('active', idx===i);
+      if(dots[idx]) dots[idx].classList.toggle('active', idx===i);
+    });
+    index = i;
+  }
+
+  function next(){ show((index+1)%slides.length); }
+  function prev(){ show((index-1+slides.length)%slides.length); }
+
+  slides.forEach(slide=>{
+    slide.addEventListener('touchstart',e=>{
+      startX = e.touches[0].clientX;
+    });
+
+    slide.addEventListener('touchend',e=>{
+      if(startX===null) return;
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+      if(Math.abs(diff) > 40){
+        if(diff < 0) next(); else prev();
+      }
+      startX = null;
+    });
+  });
+})();
+</script>
+
+<script>
+(function() {
+  const nav = document.getElementById('nav');
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('navMobile');
+
+  function syncMenuVisualState() {
+    const mobileOpen = !!(navMobile && navMobile.classList.contains('open'));
+    if (nav) nav.classList.toggle('menu-open', mobileOpen);
+    const transparentOpen = !!(mobileOpen && nav && !nav.classList.contains('scrolled'));
+    document.body.classList.toggle('transparent-menu-open', transparentOpen);
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener('click', function() {
+      requestAnimationFrame(syncMenuVisualState);
+      setTimeout(syncMenuVisualState, 20);
+    });
+  }
+
+  document.addEventListener('click', function() {
+    requestAnimationFrame(syncMenuVisualState);
+  });
+
+  window.addEventListener('scroll', syncMenuVisualState, { passive: true });
+  window.addEventListener('resize', syncMenuVisualState);
+
+  syncMenuVisualState();
+})();
+</script>
+
+</body>
+</html>
