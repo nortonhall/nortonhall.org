@@ -420,7 +420,8 @@ body.transparent-menu-open .hero::after {
   z-index:0;
   position: absolute;
   inset: 0;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center 14%;
   filter: sepia(5%) contrast(0.96) saturate(0.9);
 }
@@ -1219,40 +1220,6 @@ margin-top:0 !important;
           <a href="#" class="circular-read" aria-label="Read Issue I of The Circular">Read Issue →</a>
         </div>
       </div>
-
-      <div class="circular-band-inner carousel-slide" data-feature-type="Latest Publication">
-        <div class="circular-meta">
-          <span class="circular-kicker">Latest Publication</span>
-          <span class="circular-issue">First printing &ensp;·&ensp; 20 copies</span>
-        </div>
-        <div class="circular-content">
-          <span class="circular-title">Necessitas Mater Inventionum</span>
-          <span class="circular-excerpt">A printed volume containing two works: <em>On What Must Be the Case</em>, the formal framework itself, and <em>Accompanying Letters</em>, which render the argument in a more intuitive and approachable form.</span>
-        </div>
-        <div class="circular-action">
-          <a href="#" class="circular-read" aria-label="View Necessitas Mater Inventionum">View Publication →</a>
-        </div>
-      </div>
-
-      <div class="circular-band-inner carousel-slide" data-feature-type="Latest Public Work">
-        <div class="circular-meta">
-          <span class="circular-kicker">Latest Public Work</span>
-          <span class="circular-issue">Available to read freely</span>
-        </div>
-        <div class="circular-content">
-          <span class="circular-title">On What Must Be the Case</span>
-          <span class="circular-excerpt">The public presentation of the framework, setting out the structural conditions that must hold for anything to obtain at all, available online for readers who wish to test the argument directly.</span>
-        </div>
-        <div class="circular-action">
-          <a href="#" class="circular-read" aria-label="Read On What Must Be the Case">Read the Work →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="circular-controls" aria-label="Select featured item">
-      <button class="carousel-dot active" type="button" aria-label="Show The Circular" aria-pressed="true"></button>
-      <button class="carousel-dot" type="button" aria-label="Show Latest Publication" aria-pressed="false"></button>
-      <button class="carousel-dot" type="button" aria-label="Show Latest Public Work" aria-pressed="false"></button>
     </div>
   </div>
   </div><!-- /hero-circular-wrap -->
@@ -1272,9 +1239,9 @@ A small independent press based in Northamptonshire continuing the older traditi
 
     <div class="sections-grid">
       <a href="#" class="section-card" data-observe>
-        <span class="section-card-label">Printed Publications</span>
-        <h3>Norton Hall Press</h3>
-        <p>Formal works issued in print by the Norton Hall Press. These include printed volumes, monographs, and complete works published in small numbered runs. Each publication gathers material into a finished and stable form intended for long term reference.</p>
+        <span class="section-card-label">Publications</span>
+        <h3>Necessitas Mater Inventionum</h3>
+        <p>Formal works issued by the Norton Hall Press. These include printed volumes, monographs, and complete works published in small numbered runs. Each publication gathers material into a finished and stable form intended for long term reference.</p>
         <span class="section-card-link">View Publications →</span>
       </a>
 
@@ -1387,114 +1354,13 @@ A small independent press based in Northamptonshire continuing the older traditi
 
     navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { setMenuState(false); }));
     setMenuState(false);
-
-    const carousel = document.getElementById('featuredCarousel');
-    const slides = carousel ? Array.from(carousel.querySelectorAll('.carousel-slide')) : [];
-    const dots = Array.from(document.querySelectorAll('.carousel-dot'));
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let activeSlide = 0;
-    let autoplayId = null;
-
-    function showSlide(index) {
-      if (!slides.length) return;
-      activeSlide = (index + slides.length) % slides.length;
-      slides.forEach((slide, i) => {
-        const isActive = i === activeSlide;
-        slide.classList.toggle('active', isActive);
-        slide.setAttribute('aria-hidden', String(!isActive));
-      });
-      dots.forEach((dot, i) => {
-        const isActive = i === activeSlide;
-        dot.classList.toggle('active', isActive);
-        dot.setAttribute('aria-pressed', String(isActive));
-      });
-    }
-
-    function stopAutoplay() {
-      if (autoplayId) {
-        window.clearInterval(autoplayId);
-        autoplayId = null;
-      }
-    }
-
-    function startAutoplay() {
-      stopAutoplay();
-      if (prefersReducedMotion.matches || slides.length < 2) return;
-      autoplayId = window.setInterval(() => {
-        showSlide(activeSlide + 1);
-      }, 6500);
-    }
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        showSlide(index);
-        startAutoplay();
-      });
-    });
-
-    if (carousel) {
-      carousel.addEventListener('mouseenter', stopAutoplay);
-      carousel.addEventListener('mouseleave', startAutoplay);
-      carousel.addEventListener('focusin', stopAutoplay);
-      carousel.addEventListener('focusout', (event) => {
-        if (!carousel.contains(event.relatedTarget)) {
-          startAutoplay();
-        }
-      });
-    }
-
-    if (typeof prefersReducedMotion.addEventListener === 'function') {
-      prefersReducedMotion.addEventListener('change', startAutoplay);
-    } else if (typeof prefersReducedMotion.addListener === 'function') {
-      prefersReducedMotion.addListener(startAutoplay);
-    }
-
-    showSlide(0);
-    startAutoplay();
-
-    const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), entry.target.dataset.delay || 0); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.08 });
     document.querySelectorAll('[data-observe]').forEach((el, i) => { el.dataset.delay = i * 80; observer.observe(el); });
   </script>
-
-<script>
-(function(){
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.carousel-dot');
-  let index = 0;
-  let startX = null;
-
-  function show(i){
-    slides.forEach((s,idx)=>{
-      s.classList.toggle('active', idx===i);
-      if(dots[idx]) dots[idx].classList.toggle('active', idx===i);
-    });
-    index = i;
-  }
-
-  function next(){ show((index+1)%slides.length); }
-  function prev(){ show((index-1+slides.length)%slides.length); }
-
-  slides.forEach(slide=>{
-    slide.addEventListener('touchstart',e=>{
-      startX = e.touches[0].clientX;
-    });
-
-    slide.addEventListener('touchend',e=>{
-      if(startX===null) return;
-      const endX = e.changedTouches[0].clientX;
-      const diff = endX - startX;
-      if(Math.abs(diff) > 40){
-        if(diff < 0) next(); else prev();
-      }
-      startX = null;
-    });
-  });
-})();
-</script>
 
 <script>
 (function() {
