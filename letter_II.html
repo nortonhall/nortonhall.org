@@ -73,6 +73,11 @@
     to { opacity: 1; }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    body { animation: none; opacity: 1; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+
   /* %%% NAV %%% */
   #nav {
     position: fixed;
@@ -584,10 +589,10 @@
     margin-bottom: 0;
   }
 
-  /* Drop cap — exactly 3-line height */
+  /* Drop cap — exactly 2-line height */
   .letter-body > p:first-of-type::first-letter {
-    -webkit-initial-letter: 3;
-    initial-letter: 3;
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
     font-weight: 500;
     color: var(--ink);
     margin-right: 0.3em;
@@ -635,8 +640,8 @@
     border-top: 1px solid var(--rule);
     padding-top: 2rem;
     margin-top: 3rem;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: stretch;
     gap: 2rem;
   }
@@ -704,7 +709,7 @@
     </button>
   </nav>
 
-  <div class="nav-mobile" id="navMobile" aria-label="Mobile">
+  <div class="nav-mobile" id="navMobile" aria-label="Mobile navigation" aria-hidden="true" role="dialog">
     <ul role="list">
       <li><a href="#">Circular</a></li>
       <li><a href="letters.html">Letters</a></li>
@@ -714,19 +719,19 @@
     <div class="nav-mobile-footer" aria-label="Norton Hall">© Norton Hall</div>
   </div>
 
-  <div class="page-header">
+  <header class="page-header" aria-label="Letter header">
     <div class="page-header-inner">
-      <span class="page-kicker">Letters · Volume I · II</span>
-      <span class="page-kicker" style="margin-top: -0.5rem; margin-bottom: 1.4rem;">March 2026</span>
+      <span class="page-kicker" aria-label="Letters, Volume I, Letter II">Letters · Volume I · II</span>
+      <span class="page-kicker" style="margin-top: -0.5rem; margin-bottom: 1.4rem;" aria-label="Published March 2026">March 2026</span>
       <h1>On the Impossibility of Non-Existence</h1>
-      <div class="page-header-rule"></div>
+      <div class="page-header-rule" aria-hidden="true"></div>
     </div>
-  </div>
+  </header>
 
   <main id="main-content" tabindex="-1">
 
     <div class="letter-audio" data-observe>
-      <audio controls preload="none">
+      <audio controls preload="none" aria-label="Audio recording of Letter II: On the Impossibility of Non-Existence">
         <source src="assets/letter.II.mp3" type="audio/mpeg">
       </audio>
     </div>
@@ -761,7 +766,7 @@
 
     </div>
 
-    <div class="letter-break" data-observe></div>
+    <div class="letter-break" data-observe aria-hidden="true"></div>
 
     <div class="letter-body" data-observe>
 
@@ -797,7 +802,7 @@
 
     </div>
 
-    <div class="letter-break" data-observe></div>
+    <div class="letter-break" data-observe aria-hidden="true"></div>
 
     <div class="letter-body" data-observe>
 
@@ -821,35 +826,36 @@
 
     </div>
 
-    <div class="letter-nav" data-observe>
+    <nav class="letter-nav" data-observe aria-label="Letter navigation">
       <div class="letter-nav-item">
-        <span class="letter-nav-label">← Previous</span>
-        <a href="#" class="letter-nav-title">Letter I</a>
+        <span class="letter-nav-label" aria-hidden="true">← Previous</span>
+        <a href="#" class="letter-nav-title" aria-label="Previous letter: Letter I">Letter I</a>
       </div>
-      <div class="letter-nav-center">
+      <div class="letter-nav-center" aria-hidden="true">
         <div class="nav-rule-v"></div>
-      </div>      <div class="letter-nav-item next">
-        <span class="letter-nav-label">Next →</span>
-        <a href="#" class="letter-nav-title">Letter III</a>
       </div>
-    </div>
+      <div class="letter-nav-item next">
+        <span class="letter-nav-label" aria-hidden="true">Next →</span>
+        <a href="#" class="letter-nav-title" aria-label="Next letter: Letter III">Letter III</a>
+      </div>
+    </nav>
 
   </main>
 
   <footer aria-label="Footer">
-    <span class="footer-mark">⁂</span>
+    <span class="footer-mark" aria-hidden="true">⁂</span>
     <nav class="footer-nav" aria-label="Footer">
       <a href="#">Circular</a>
-      <span class="footer-sep">·</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
       <a href="letters.html">Letters</a>
-      <span class="footer-sep">·</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
       <a href="#">Volumes</a>
-      <span class="footer-sep">·</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
       <a href="contact.html">Contact</a>
     </nav>
     <nav class="footer-legal" aria-label="Legal">
       <a href="#">Privacy</a>
-      <span class="footer-sep">·</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
       <a href="#">Imprint</a>
     </nav>
     <span class="footer-copy">© Norton Hall 2026</span>
@@ -871,6 +877,7 @@
       nav.classList.toggle('menu-open', open);
       hamburger.setAttribute('aria-expanded', String(open));
       hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      navMobile.setAttribute('aria-hidden', String(!open));
     }
 
     hamburger.addEventListener('click', function (e) {
